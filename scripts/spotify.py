@@ -10,7 +10,7 @@ try:
     props = spotify_iface.Get('org.mpris.MediaPlayer2.Player', 'Metadata')
     artist_name = props['xesam:artist'][0]
     song_title = props['xesam:title']
-    print(artist_name + " - " + song_title).encode('utf-8')
+    print(artist_name + " - " + song_title)
     exit
 except dbus.exceptions.DBusException:
     exit
