@@ -2,6 +2,8 @@
 
 ![Dotfiles](https://i.imgur.com/jEckCHk.png)
 
+# Akira Theme
+
 ## Details
 
 * CLI
