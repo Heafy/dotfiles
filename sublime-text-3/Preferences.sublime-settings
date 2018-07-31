@@ -1,7 +1,5 @@
 {
-	"color_scheme": "Packages/Colorsublime - Themes/cache/Colorsublime-Themes-master/themes/Monokai-Cobalt.tmTheme",
-	"font-size": 11,
-	"font_face": "Source Code Pro",
+	"font_face": "Input Regular",
 	"font_size": 10,
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
