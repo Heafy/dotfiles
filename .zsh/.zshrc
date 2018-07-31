@@ -2,12 +2,12 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/heafy/.oh-my-zsh
+export ZSH="/home/heafy/.oh-my-zsh"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+ZSH_THEME="refined"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -48,7 +48,10 @@ ZSH_THEME="agnoster"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
@@ -88,33 +91,11 @@ source $ZSH/oh-my-zsh.sh
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# Update alias
-alias update="sudo apt-get update"
-alias upgrade="sudo apt-get upgrade"
-alias dist-upgrade="sudo apt-get dist-upgrade"
-
-# Install alias
-alias debinstall="sudo dpkg -i"
-alias getinstall="sudo apt-get install"
-
+alias weather='curl -4 http://wttr.in/~Mexico'
+alias update='sudo pacman -Syu'
+# Search alias
+alias search="sudo find / -type d -name"
 # Config i3
 alias i3config="subl .config/i3/config"
 # Zsh config alias
 alias zshconfig="subl .zshrc"
-
-# Search alias
-alias search="sudo find / -type d -name"
-# PostreSQL quick start
-alias psql="psql -U postgres"
-# Julia alias
-alias julia="/home/heafy/.julia/bin/julia"
-#Pintos alias
-export PATH=$PATH:/home/heafy/pintos/src/utils
-
-
-
