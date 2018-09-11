@@ -1,31 +1,14 @@
-# Custom dotfile by Heafy
-#
-# i3 config file (v4)
-# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+#################################################
+# Custom dotfile by Heafy #######################
+# i3 config file (v4) ###########################
+# Please see http://i3wm.org/docs/userguide.html
+# for a complete reference! #####################
+#################################################
 
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
 # Set alt key
 set $alt Mod1
-
-# Color palette used for the terminal ( ~/.Xresources file )
-# Colors are gathered based on the documentation:
-# https://i3wm.org/docs/userguide.html#xresources
-set_from_resource $white            white
-set_from_resource $black            black
-set_from_resource $gray             gray
-set_from_resource $carnation        carnation
-set_from_resource $salmon           salmon
-set_from_resource $old-rose         old-rose
-set_from_resource $red              red
-set_from_resource $dark-red         dark-red
-set_from_resource $black-russian    black-russian
-set_from_resource $blue-san-juan    blue-san-juan
-set_from_resource $blue             blue
-set_from_resource $blue-darker      blue-darker
-set_from_resource $turquoise        turquoise
-set_from_resource $mint             mint
-set_from_resource $turquoise-dark   turquoise-dark 
 
 # set default desktop layout (default is tiling)
 # workspace_layout tabbed <stacking|tabbed>
@@ -44,19 +27,13 @@ bindsym $mod+n border normal
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font xft:Roboto 10.5
+font xft:Roboto 11
 
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
 
-# start a XFCE terminal
-bindsym Control+$alt+T exec --no-startup-id xfce4-terminal
-
-# start XFCE dropdown terminal
-bindsym $alt+grave exec xfce4-terminal --drop-down
-
-# file manager shortcut
-bindsym $mod+e exec thunar
+# start a terminal
+bindsym Control+$alt+T exec terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -64,21 +41,25 @@ bindsym $mod+Shift+q kill
 # start program launcher
 #bindsym $mod+Return exec --no-startup-id i3-dmenu-desktop
 bindsym $mod+Return exec rofi -show drun
-# Start command launcher
-bindsym $alt+F2 exec rofi   -show run
+bindsym $alt+F2 exec rofi -show run
 
 # launch categorized menu
 bindsym $mod+z exec --no-startup-id morc_menu
 
-################################################################################################
-## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
-################################################################################################
+#################################################
+# sound-section - DO NOT EDIT if you wish to ####
+# automatically upgrade Alsa -> Pulseaudio ######
+#################################################
 
-exec --no-startup-id volumeicon
-bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
+#exec --no-startup-id volumeicon
+#bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 #exec --no-startup-id pulseaudio
 #exec --no-startup-id pa-applet
-#bindsym $mod+Ctrl+m exec pavucontrol
+exec --no-startup-id pkill pulseaudio 
+exec --no-startup-id systemctl --user start pulseaudio.socket
+exec --no-startup-id systemctl --user start pulseaudio.service
+#exec --no-startup-id pa-applet
+bindsym $mod+Ctrl+m exec pavucontrol
 
 # Media player controls for Spotify
 # Play / Pause
@@ -99,6 +80,7 @@ bindsym XF86AudioPrev exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2
 # Start Applications
 #bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
 bindsym $mod+F3 exec gksu thunar
+bindsym $mod+e exec thunar
 
 # screenshot full
 bindsym Print exec --no-startup-id i3-scrot
@@ -110,12 +92,12 @@ bindsym $mod+Print --release exec --no-startup-id i3-scrot -s
 bindsym $mod+x --release exec --no-startup-id xkill
 
 # change focus
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+bindsym Ctrl+$alt+Left focus left
+bindsym Ctrl+$alt+Down focus down
+bindsym Ctrl+$alt+Up focus up
+bindsym Ctrl+$alt+Right focus right
 
-# move focused window
+# move focused windowd
 bindsym $mod+Ctrl+Left move left
 bindsym $mod+Ctrl+Down move down
 bindsym $mod+Ctrl+Up move up
@@ -132,7 +114,7 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+q layout toggle split
-		
+
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
@@ -142,22 +124,32 @@ bindsym $mod+space focus mode_toggle
 # toggle sticky
 bindsym $mod+Shift+s sticky toggle
 
+# focus the parent container
+bindsym $mod+a focus parent
+
+# move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+minus scratchpad show
+
 #navigate workspaces next / previous
-bindsym $alt+Tab workspace next
-bindsym $Mod+Tab workspace prev
+bindsym $mod+Right workspace next
+bindsym $mod+Left workspace prev
 
 # Workspace names
 # to display names or symbols instead of plain workspace numbers you can use
 # something like: set $ws1 1:mail
 #                 set $ws2 2:
-set $ws1 " Spotify"
-set $ws2 " Chrome"
-set $ws3 " Code"
-set $ws4 " Terminal"
-set $ws5 " Files"
-set $ws6 " Android Studio"
-set $ws7 " Github"
-set $ws8 " Extra"
+set $ws1 music
+set $ws2 web
+set $ws3 code
+set $ws4 term
+set $ws5 android
+set $ws6 6
+set $ws7 7
+set $ws8 8
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -192,15 +184,16 @@ bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 # Open applications on specific workspaces
 for_window [class="Spotify"] move to workspace $ws1
 assign [class="Google-chrome"] $ws2
+assign [class="Code"] $ws3
 
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
+for_window [title="File Transfer*"] floating enable
 for_window [class="GParted"] floating enable border normal
-for_window [title="i3_help"] floating enable sticky enable border normal
-for_window [class="Lightdm-gtk-greeter-settings"] floating enable
+for_window [class="Lightdm-settings"] floating enable
 for_window [class="Lxappearance"] floating enable sticky enable border normal
-for_window [class="Manjaro Settings Manager"] floating enable border normal
 for_window [class="Nitrogen"] floating enable sticky enable border normal
+for_window [class="Pavucontrol"] floating enable
 for_window [class="Pamac-manager"] floating enable
 for_window [class="qt5ct"] floating enable sticky enable border normal
 for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
@@ -224,7 +217,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 bindsym $mod+0 mode "$mode_system"
 set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id i3exit lock, mode "default"
+    bindsym l exec --no-startup-id dm-tool lock
     bindsym s exec --no-startup-id i3exit suspend, mode "default"
     bindsym u exec --no-startup-id i3exit switch_user, mode "default"
     bindsym e exec --no-startup-id i3exit logout, mode "default"
@@ -262,7 +255,7 @@ mode "resize" {
 }
 
 # Lock screen
-bindsym $mod+l exec --no-startup-id blurlock
+bindsym $mod+l exec dm-tool lock
 
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
@@ -271,59 +264,61 @@ exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id pamac-tray
 # exec --no-startup-id blueman-applet
-# exec_always --no-startup-id sbxkb
 exec --no-startup-id xautolock -time 10 -locker blurlock
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
+exec_always --no-startup-id $HOME/.config/scripts/polybar.sh
 
-# Start i3bar to display a workspace bar (plus the system information i3status if available)
-bar {
-	i3bar_command i3bar
-	status_command i3blocks -c /home/heafy/.config/i3blocks/i3blocks.conf
-    strip_workspace_numbers yes
-	position bottom
+# Color palette used for the terminal ( ~/.Xresources file )
+# Colors are gathered based on the documentation:
+# https://i3wm.org/docs/userguide.html#xresources
+set_from_resource $black            black
+set_from_resource $white            white
+set_from_resource $orange           orange
+set_from_resource $blue             blue
+set_from_resource $purple           purple
+set_from_resource $bluefocused      bluefocused
+set_from_resource $blueunfocused    blueunfocused
+set_from_resource $red              red
 
-## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
-#	tray_output primary
-#	tray_output eDP1
-
-	bindsym button4 nop
-	bindsym button5 nop
-#   font xft:URWGothic-Book 11
-
-    colors {
-        background $blue-darker
-        statusline $white
-        separator  $white
-
-        #                   border          backgr.         text
-        focused_workspace   $blue           $blue           $white
-        active_workspace    $salmon         $salmon         $white
-        inactive_workspace  $blue-darker    $blue-darker    $white
-        binding_mode        $mint           $mint           $black
-        urgent_workspace    $red            $red            $white
-    }
-}
+set_from_resource $term_background background
+set_from_resource $term_foreground foreground
+set_from_resource $term_color0     color0
+set_from_resource $term_color1     color1
+set_from_resource $term_color2     color2
+set_from_resource $term_color3     color3
+set_from_resource $term_color4     color4
+set_from_resource $term_color5     color5
+set_from_resource $term_color6     color6
+set_from_resource $term_color7     color7
+set_from_resource $term_color8     color8
+set_from_resource $term_color9     color9
+set_from_resource $term_color10    color10
+set_from_resource $term_color11    color11
+set_from_resource $term_color12    color12
+set_from_resource $term_color13    color13
+set_from_resource $term_color14    color14
+set_from_resource $term_color15    color15
 
 # hide/unhide i3status bar
 bindsym $mod+m bar mode toggle
 
 # Theme colors
-# class                   border            backgr.         text        indic.   
-  client.focused          $blue             $blue           $white      $blue
-  client.focused_inactive $blue-san-juan    $blue-san-juan  $white      $blue-san-juan
-  client.unfocused        $blue-darker      $blue-darker    $white      $blue-darker
-  client.urgent           $red              $red            $white      $red
-  client.placeholder      $red              $red            $white      $red 
-  client.background       $black
+# class                   border    backgr.     text        indic.   child_border
+  client.focused          $blue     $blue       $white      $white
+  client.focused_inactive $purple   $purple     $white      $white
+  client.unfocused        $purple   $purple     $white      $white
+  client.urgent           $orange   $orange     $white      $white
+  client.placeholder      #000000   #0c0c0c     #ffffff     #000000 
+  client.background       #2B2C2B
 
-#############################
-### settings for i3-gaps: ###
-#############################
+#################################################
+# settings for i3-gaps: #########################
+#################################################
 
 # Set inner/outer gaps
-gaps inner 10
-gaps outer -4
+gaps inner 14
+gaps outer -2
 
 # Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
 # gaps inner|outer current|all set|plus|minus <px>
@@ -336,5 +331,3 @@ smart_gaps on
 # Smart borders (draw borders around container only if it is not the only container on this workspace) 
 # on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
 smart_borders on
-
-exec compton
