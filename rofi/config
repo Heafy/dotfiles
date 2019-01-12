@@ -1,0 +1,9 @@
+rofi.theme:             ~/.cache/wal/colors-rofi-dark.rasi
+rofi.modi:              window,run,ssh,drun
+rofi.font:              Lato 12
+rofi.width:             30
+rofi.lines:             5
+rofi.bw:                0
+rofi.padding:           400
+rofi.eh:                1
+rofi.hide-scrollbar:    true
